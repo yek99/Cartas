@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Juego de apuntado</title>
+        <script src="C:/Users/Lenovo/Documents/Pruebas HTML/Juego Cartas/Codigo/Carta.js"></script>
+        <link href="C:/Users/Lenovo/Documents/Pruebas HTML/Juego Cartas/Estilos/Estilos.css" rel="stylesheet"type="text/css">
+        <script>
+            //vector que almacena las cartas
+            var cartas=[];
+
+            function Repartir()
+            {                
+                if(cartas.length > 0)
+                {                    
+                    for(var i=0;i<10;i++)
+                    {
+                        var obj=document.getElementById("carta"+i.toString());
+                        obj.remove();
+                    }
+                }
+                cartas=[];
+                for(var i=0;i<10;i++)
+                {
+                    var carta = new Carta(); // se crea instancia de carta
+                    cartas.push(carta);
+                    //var mesa = document.getElementById("mesa"); // se hace llamado a mesa
+                    var imgCarta = document.createElement("img");// Se crea un elemento para mostrar la imagen        
+                    imgCarta.src = carta.obtenerImagen();// hace el llamado a la imagen de la carpeta 
+                    imgCarta.id="carta"+i.toString();
+                    mesa.appendChild(imgCarta); // se hereda la carta a la mesa // agregar la imagen a la mesa
+                }
+            }//repartir
+            
+            function Chequear()
+            {
+                if(cartas.length>0) // se pregunta por el tamaño del vector que guarda las cartas
+                {
+                    var contador=[];
+                   
+                    // iniciar contadores de numeros de carta en 0
+                    for(var i=0;i<13;i++ )
+                    {
+                        contador.push(0); // creacion del contador
+                    }
+                    // recorrer cada carta e incrementar el contador respectivo de numero
+                    for(var i=0;i<cartas.length;i++)
+                    {
+                        contador[cartas[i].obtenerIndiceNombre()]++;
+                        
+                    }
+                    var grupo=["Vacio","none","par","terna","cuarta","quinta","septima"];
+                    var nombre=["A","2","3","4","5","6","7","8","9","j","J","Q","k"];
+                    var mensaje="se encontraron los siguientes grupos"
+                    for(var i=0;i<13;i++)
+                    {
+                         if(contador[i]>=2)
+                         {
+                             mensaje+= "\n" + grupo[contador[i]]+ " de " + nombre[i];
+                         }
+                    }
+                    window.alert(mensaje);
+                }
+                else
+                {
+                    window.alert("no hay cartras repartidas");
+                }
+            }
+            
+        </script>
+    </head>
+    <body>
+<!-- Uno puede alinear el contenido del div: widht es el tamaño horizonla y text-align:center lo centra-->
+    <div class="botones">
+        <button onclick="Repartir();">
+            <img src="imagenes/Repartir.png">
+        </button>
+        <button onclick="Chequear();">
+            <img src="imagenes/Verificar.png">
+        </button>
+    </div>
+    <div id="mesa" >
+    </div>
+
+    </body>
+</html> 
